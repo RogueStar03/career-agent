@@ -1,0 +1,39 @@
+name: Your Full Name
+location: Your City, Country
+remote_preference: remote-first  # remote-first | hybrid | on-site
+
+target_roles:
+  - Frontend Developer (React/Next.js)
+  - Full Stack Developer
+  - AI/ML Application Developer
+
+experience_years: 2  # total years of professional experience
+
+salary_range:
+  min: 1000000   # annual, in your currency
+  max: 1500000
+  currency: INR  # e.g. INR, USD, EUR
+
+dealbreakers:
+  - No equity-only comp
+  - Mandatory on-site 5 days
+  # Add your own — these block fast during evaluation
+
+strengths:
+  - React, Next.js, TypeScript
+  - Node.js, Python FastAPI
+  - PostgreSQL, Supabase
+  # List your core, confident skills here
+
+growth_areas:
+  - System design at scale
+  - ML model deployment
+  # What you want to grow into — used for scoring growth potential
+
+archetypes:
+  frontend:
+    keywords: [react, next.js, vue, angular, frontend, ui, typescript]
+  fullstack:
+    keywords: [node.js, fastapi, full stack, backend, api, postgres]
+  ai_ml:
+    keywords: [llm, ai, ml, agents, langchain, openai]

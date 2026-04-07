@@ -1,0 +1,18 @@
+# Personal data — never commit
+cv.md
+profile.yml
+data/applications.json
+data/pipeline.json
+data/story-bank.md
+reports/
+output/
+
+# Claude Code local memory
+.claude/
+
+# Node
+node_modules/
+
+# Generated files
+*.pdf
+*.env
