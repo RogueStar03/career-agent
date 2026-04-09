@@ -42,3 +42,10 @@ If a JD matches multiple archetypes, pick the strongest match and note secondary
 3. Always save evaluation output to both reports/ (markdown) and data/applications.json
 4. Never hallucinate company details — only state what's in the JD or explicitly sourced
 5. When in doubt about scoring, be conservative (lower) and explain why
+
+## PDF Generation
+
+- PDFs are saved to `output/` as `cv-abhi-{company-slug}-{YYYY-MM-DD}.pdf`
+- The HTML template is at `templates/cv-template.html` — uses `{{PLACEHOLDER}}` syntax
+- The generation script is `scripts/generate-pdf.mjs`
+- Always update `data/applications.json` with `pdf_path` after generating

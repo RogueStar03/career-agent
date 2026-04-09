@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{FULL_NAME}} — Resume</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 11px;
+      line-height: 1.4;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    .page {
+      width: 8.5in;
+      min-height: 11in;
+      margin: 0 auto;
+      padding: 0.5in;
+    }
+
+    /* ── Header ── */
+    .header {
+      margin-bottom: 14px;
+      border-bottom: 2px solid #2563eb;
+      padding-bottom: 10px;
+    }
+
+    .header h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.3px;
+    }
+
+    .contact-row {
+      margin-top: 4px;
+      font-size: 10.5px;
+      color: #475569;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 16px;
+    }
+
+    .contact-row a {
+      color: #475569;
+      text-decoration: none;
+    }
+
+    /* ── Sections ── */
+    .section {
+      margin-bottom: 13px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #2563eb;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 2px;
+      margin-bottom: 7px;
+    }
+
+    /* ── Summary ── */
+    .summary p {
+      color: #334155;
+    }
+
+    /* ── Skills ── */
+    .skills p {
+      color: #334155;
+    }
+
+    /* ── Experience ── */
+    .job {
+      margin-bottom: 10px;
+    }
+
+    .job:last-child {
+      margin-bottom: 0;
+    }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .job-title {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .job-company {
+      font-weight: 500;
+      color: #334155;
+    }
+
+    .job-date {
+      font-size: 10px;
+      color: #64748b;
+      white-space: nowrap;
+      margin-left: 8px;
+    }
+
+    .job ul {
+      margin-top: 4px;
+      padding-left: 14px;
+      color: #334155;
+    }
+
+    .job ul li {
+      margin-bottom: 2px;
+    }
+
+    /* ── Projects ── */
+    .project {
+      margin-bottom: 9px;
+    }
+
+    .project:last-child {
+      margin-bottom: 0;
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .project-name {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .project-tech {
+      font-size: 10px;
+      color: #64748b;
+      font-style: italic;
+    }
+
+    .project ul {
+      margin-top: 4px;
+      padding-left: 14px;
+      color: #334155;
+    }
+
+    .project ul li {
+      margin-bottom: 2px;
+    }
+
+    /* ── Education ── */
+    .edu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .edu-degree {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .edu-date {
+      font-size: 10px;
+      color: #64748b;
+    }
+
+    .edu-school {
+      color: #334155;
+      margin-top: 1px;
+    }
+
+    .edu-detail {
+      color: #64748b;
+      font-size: 10.5px;
+      margin-top: 1px;
+    }
+
+    /* ── Certifications ── */
+    .cert-list {
+      color: #334155;
+      padding-left: 14px;
+    }
+
+    .cert-list li {
+      margin-bottom: 2px;
+    }
+
+    /* ── Print ── */
+    @media print {
+      body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .page {
+        width: 100%;
+        padding: 0.5in;
+      }
+
+      .section {
+        page-break-inside: avoid;
+      }
+
+      .job, .project {
+        page-break-inside: avoid;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+    }
+
+    @page {
+      size: letter;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Header -->
+    <div class="header">
+      <h1>{{FULL_NAME}}</h1>
+      <div class="contact-row">
+        <span>{{LOCATION}}</span>
+        <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+        <span>{{PHONE}}</span>
+        <a href="{{LINKEDIN}}">LinkedIn</a>
+        <a href="{{PORTFOLIO}}">GitHub</a>
+      </div>
+    </div>
+
+    <!-- Professional Summary -->
+    <div class="section summary">
+      <div class="section-title">Professional Summary</div>
+      <p>{{PROFESSIONAL_SUMMARY}}</p>
+    </div>
+
+    <!-- Skills -->
+    <div class="section skills">
+      <div class="section-title">Skills</div>
+      <p>{{SKILLS}}</p>
+    </div>
+
+    <!-- Experience -->
+    <div class="section">
+      <div class="section-title">Experience</div>
+      {{EXPERIENCE}}
+    </div>
+
+    <!-- Projects -->
+    <div class="section">
+      <div class="section-title">Projects</div>
+      {{PROJECTS}}
+    </div>
+
+    <!-- Education -->
+    <div class="section">
+      <div class="section-title">Education</div>
+      {{EDUCATION}}
+    </div>
+
+    <!-- Certifications -->
+    <div class="section">
+      <div class="section-title">Certifications</div>
+      {{CERTIFICATIONS}}
+    </div>
+
+  </div>
+</body>
+</html>

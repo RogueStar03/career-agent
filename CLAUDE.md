@@ -42,7 +42,7 @@ Then run the command again.
 | `/career-agent status` | Show tracker summary | (inline — see below) |
 | `/career-agent verify` | Run data integrity checks | `scripts/verify.mjs` |
 
-**Auto-detect:** If the user pastes a URL or raw JD text without a command, run the eval pipeline automatically.
+**Auto-detect:** If the user pastes a URL or raw JD text without a command, run the eval pipeline automatically. If the user says "pdf", "cv", "resume", "tailor", or "generate" in the context of creating a document, trigger the tailor-cv mode.
 
 ### Status command (inline)
 
@@ -77,14 +77,15 @@ Top scored (≥4.0): X applications
 | `modes/_context.md` | Shared rules loaded by every mode |
 | `modes/*.md` | Task-specific prompt files |
 | `templates/scoring.yml` | Scoring dimension weights |
-| `templates/cv-template.html` | HTML template for PDF generation |
+| `templates/cv-template.html` | ATS-optimized CV HTML template |
 | `templates/portals.yml` | Company career pages for scanning |
 | `data/applications.json` | Single source of truth — all tracked applications |
 | `data/pipeline.json` | Inbox of URLs discovered by scanner, pending evaluation |
 | `data/story-bank.md` | Accumulated STAR stories |
 | `reports/` | One markdown report per evaluation |
 | `output/` | Generated CV PDFs |
-| `scripts/` | Node.js utility scripts |
+| `scripts/generate-pdf.mjs` | HTML to PDF converter via Puppeteer |
+| `scripts/verify.mjs` | Data integrity checks |
 
 ---
 
@@ -125,7 +126,7 @@ The mode file contains the detailed step-by-step instructions for that task.
 
 ### Next steps
 - [x] Phase 2: `templates/scoring.yml` + `scripts/verify.mjs`
-- [ ] Phase 3: `templates/cv-template.html` + `scripts/generate-pdf.mjs` + `modes/tailor-cv.md`
+- [x] Phase 3: `templates/cv-template.html` + `scripts/generate-pdf.mjs` + `modes/tailor-cv.md`
 - [ ] Phase 4: `modes/interview-prep.md`
 - [ ] Phase 5: `templates/portals.yml` + `modes/scan.md`
 - [ ] Phase 6: `modes/outreach.md` + `modes/research.md`
