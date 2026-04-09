@@ -1,0 +1,81 @@
+# Scoring dimensions for job evaluation
+# Each dimension is scored 1-5, weighted to produce a final score
+# Weights must sum to 1.0
+# Customize weights based on what matters most to you
+
+dimensions:
+  - name: role_match
+    weight: 0.20
+    description: "How closely does the role title and responsibilities match your target roles?"
+    scoring_guide:
+      5: "Exact match to a target role"
+      4: "Strong overlap, minor differences"
+      3: "Partial overlap, some stretch"
+      2: "Tangential — related but not what you're aiming for"
+      1: "Completely different domain"
+
+  - name: tech_stack_fit
+    weight: 0.20
+    description: "How much overlap between their required stack and your skills?"
+    scoring_guide:
+      5: "90%+ overlap with your stack"
+      4: "Core stack matches, 1-2 new tools"
+      3: "50% overlap, significant learning curve"
+      2: "Mostly unfamiliar stack"
+      1: "Completely different tech world"
+
+  - name: growth_potential
+    weight: 0.15
+    description: "Will this role help you learn what's in your growth_areas?"
+    scoring_guide:
+      5: "Directly addresses multiple growth areas"
+      4: "Strong learning opportunity in 1-2 areas"
+      3: "Some growth, mostly using existing skills"
+      2: "Lateral move, little new learning"
+      1: "Step backward or stagnation"
+
+  - name: compensation
+    weight: 0.15
+    description: "Does the compensation meet your range?"
+    scoring_guide:
+      5: "Above your max range"
+      4: "Within range, good package"
+      3: "At or near your minimum"
+      2: "Below range but negotiable"
+      1: "Significantly below range or unclear"
+
+  - name: company_stage
+    weight: 0.10
+    description: "Does the company stage match your preference?"
+    scoring_guide:
+      5: "Ideal stage (growth startup, product-focused)"
+      4: "Good fit with minor tradeoffs"
+      3: "Acceptable but not ideal"
+      2: "Mismatch (too early/too corporate)"
+      1: "Strong mismatch with your preferences"
+
+  - name: remote_flexibility
+    weight: 0.10
+    description: "Does the work arrangement match your preference?"
+    scoring_guide:
+      5: "Fully remote, async-friendly"
+      4: "Remote-first with occasional sync"
+      3: "Hybrid with flexibility"
+      2: "Hybrid with strict office days"
+      1: "Fully on-site required"
+
+  - name: culture_signals
+    weight: 0.10
+    description: "Red/green flags from JD language, company presence, reviews"
+    scoring_guide:
+      5: "Multiple green flags, no red flags"
+      4: "Mostly positive signals"
+      3: "Neutral — not enough info"
+      2: "Some concerning signals"
+      1: "Major red flags (toxic language, churn indicators)"
+
+thresholds:
+  apply:    4.0   # Score >= this → strongly recommend applying
+  consider: 3.0   # Score >= this → worth considering with tailored CV
+  weak:     2.0   # Score >= this → apply only if pipeline is thin
+  pass:     0.0   # Score < 2.0  → not worth the time
