@@ -124,7 +124,7 @@ The mode file contains the detailed step-by-step instructions for that task.
 - Intelligence in prompt design of mode files, not in code
 
 ### Next steps
-- [ ] Phase 2: `templates/scoring.yml` + `scripts/verify.mjs`
+- [x] Phase 2: `templates/scoring.yml` + `scripts/verify.mjs`
 - [ ] Phase 3: `templates/cv-template.html` + `scripts/generate-pdf.mjs` + `modes/tailor-cv.md`
 - [ ] Phase 4: `modes/interview-prep.md`
 - [ ] Phase 5: `templates/portals.yml` + `modes/scan.md`
