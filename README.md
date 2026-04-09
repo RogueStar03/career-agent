@@ -11,14 +11,14 @@ Evaluates job descriptions, scores them against your profile, generates tailored
 This system runs entirely inside [Claude Code](https://claude.ai/code). The `modes/` folder contains prompt files that define how Claude behaves for each task. Your resume and preferences are configuration files Claude reads before every operation.
 
 ```
-/career-agent eval <JD text or URL>   → score a job posting
-/career-agent pdf <id>                → generate a tailored CV PDF
-/career-agent scan                    → scan portals for new listings
-/career-agent prep <id>               → interview prep (STAR stories)
-/career-agent outreach <id>           → draft outreach message
-/career-agent research <id>           → deep company research
-/career-agent status                  → show tracker summary
-/career-agent verify                  → run data integrity checks
+/career-agent eval <JD text or URL>   → score a job posting          ✓
+/career-agent pdf <id>                → generate a tailored CV PDF    ✓
+/career-agent status                  → show tracker summary          ✓
+/career-agent verify                  → run data integrity checks     ✓
+/career-agent prep <id>               → interview prep (STAR stories) ⧖ pending
+/career-agent scan                    → scan portals for new listings ⧖ pending
+/career-agent outreach <id>           → draft outreach message        ⧖ pending
+/career-agent research <id>           → deep company research         ⧖ pending
 ```
 
 Paste a URL or raw JD text without a command and eval runs automatically.
