@@ -109,4 +109,23 @@ The mode file contains the detailed step-by-step instructions for that task.
 
 ## Last Session
 
-_Nothing yet — this is the initial setup._
+**2026-04-09 — Phase 1 complete**
+
+### What changed
+- Built full project scaffold: `modes/`, `data/`, `templates/`, `scripts/`, `reports/`, `output/`
+- Created `CLAUDE.md`, `cv.md`, `profile.yml`, `modes/_context.md`, `modes/evaluate.md`
+- Created `.claude/commands/career-agent.md` — exposes `/career-agent` in Claude Code command palette
+- `cv.md` and `profile.yml` filled in with real data by Abhi
+- 4 JD evaluations run and tracked (IDs 001–004)
+
+### Key decisions
+- Single dispatcher command file vs one per subcommand (keeps menu clean)
+- JSON tracker over TSV — easier to parse and extend
+- Intelligence in prompt design of mode files, not in code
+
+### Next steps
+- [ ] Phase 2: `templates/scoring.yml` + `scripts/verify.mjs`
+- [ ] Phase 3: `templates/cv-template.html` + `scripts/generate-pdf.mjs` + `modes/tailor-cv.md`
+- [ ] Phase 4: `modes/interview-prep.md`
+- [ ] Phase 5: `templates/portals.yml` + `modes/scan.md`
+- [ ] Phase 6: `modes/outreach.md` + `modes/research.md`
