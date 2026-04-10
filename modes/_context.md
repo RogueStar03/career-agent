@@ -49,3 +49,24 @@ If a JD matches multiple archetypes, pick the strongest match and note secondary
 - The HTML template is at `templates/cv-template.html` — uses `{{PLACEHOLDER}}` syntax
 - The generation script is `scripts/generate-pdf.mjs`
 - Always update `data/applications.json` with `pdf_path` after generating
+
+## Interview Prep
+- Prep sheets saved to `reports/prep-{NNN}-{company-slug}-{YYYY-MM-DD}.md`
+- STAR stories accumulate in `data/story-bank.md` — always check before adding duplicates
+- Every story must map to a real experience from cv.md
+
+## Portal Scanner
+- Company config in `templates/portals.yml`
+- Scan history tracked in `data/scan-history.json`
+- New finds go to `data/pipeline.json` for triage
+- Scanning is for finding, not evaluating
+
+## Outreach
+- Messages are displayed in terminal, not saved to files
+- LinkedIn connection requests: 300 char hard limit
+- Always reference specific things, never be generic
+
+## Research
+- Research briefs saved to `reports/research-{company-slug}-{YYYY-MM-DD}.md`
+- Always use web search, don't rely on training data
+- Flag both green and red flags

@@ -1,0 +1,78 @@
+# Portal Scanner Configuration
+# Add companies you're interested in tracking
+
+companies:
+  # Greenhouse-based career pages
+  - name: Supabase
+    careers_url: https://boards.greenhouse.io/supabase
+    platform: greenhouse
+    keywords:
+      - frontend
+      - full stack
+      - developer
+
+  - name: Vercel
+    careers_url: https://vercel.com/careers
+    platform: custom
+    keywords:
+      - engineer
+      - developer
+      - frontend
+
+  - name: Retool
+    careers_url: https://boards.greenhouse.io/retool
+    platform: greenhouse
+    keywords:
+      - frontend
+      - full stack
+
+  - name: PostHog
+    careers_url: https://boards.greenhouse.io/posthog
+    platform: greenhouse
+    keywords:
+      - engineer
+      - full stack
+
+  - name: Linear
+    careers_url: https://linear.app/careers
+    platform: custom
+    keywords:
+      - engineer
+      - frontend
+
+  - name: Resend
+    careers_url: https://boards.greenhouse.io/resend
+    platform: greenhouse
+    keywords:
+      - engineer
+      - developer
+
+  - name: Anthropic
+    careers_url: https://boards.greenhouse.io/anthropic
+    platform: greenhouse
+    keywords:
+      - engineer
+      - developer
+      - AI
+
+  - name: Cursor
+    careers_url: https://www.cursor.com/careers
+    platform: custom
+    keywords:
+      - engineer
+      - developer
+
+# Search queries for job boards
+queries:
+  - platform: wellfound
+    url: https://wellfound.com/role/r/software-engineer
+    search: "react frontend remote"
+
+  - platform: wellfound
+    url: https://wellfound.com/role/r/full-stack-engineer
+    search: "full stack node react"
+
+# Scan settings
+scan_settings:
+  max_results_per_company: 20
+  match_threshold: 0.5   # keyword match ratio to include a listing
