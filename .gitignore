@@ -3,6 +3,7 @@ cv.md
 profile.yml
 data/applications.json
 data/pipeline.json
+data/scan-history.json
 data/story-bank.md
 reports/
 output/
