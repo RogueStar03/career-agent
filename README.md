@@ -15,10 +15,10 @@ This system runs entirely inside [Claude Code](https://claude.ai/code). The `mod
 /career-agent pdf <id>                → generate a tailored CV PDF    ✓
 /career-agent status                  → show tracker summary          ✓
 /career-agent verify                  → run data integrity checks     ✓
-/career-agent prep <id>               → interview prep (STAR stories) ⧖ pending
-/career-agent scan                    → scan portals for new listings ⧖ pending
-/career-agent outreach <id>           → draft outreach message        ⧖ pending
-/career-agent research <id>           → deep company research         ⧖ pending
+/career-agent prep <id>               → interview prep (STAR stories) ✓
+/career-agent scan                    → scan portals for new listings ✓
+/career-agent outreach <id>           → draft outreach message        ✓
+/career-agent research <id>           → deep company research         ✓
 ```
 
 Paste a URL or raw JD text without a command and eval runs automatically.
