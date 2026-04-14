@@ -1,6 +1,8 @@
 # Mode: evaluate
 
-Evaluate a job description against Abhi's profile and produce a structured report.
+Load from _context.md: Universal gate + Required reads (heavy) + Core rules + Scoring dimensions + Output standards + Archetype classification
+
+Evaluate a job description against the user's profile and produce a structured report.
 
 ## Input
 
@@ -11,7 +13,8 @@ The user provides one of:
 ## Steps
 
 ### Step 1: Load context
-Read `cv.md` and `profile.yml`. Confirm both exist and are filled in (not template placeholders).
+Read `cv.md` and `profile.yml`. Also read `data/user-patterns.md` (apply any noted preferences silently).
+Universal gate applies — if either file is missing or has placeholders, stop and ask before proceeding.
 
 ### Step 2: Extract JD metadata
 From the JD, extract:
@@ -149,3 +152,10 @@ Print a short summary:
   Report: reports/{filename}.md
   Tracker updated: data/applications.json
 ```
+
+### Step 12: What's next
+Check `data/pipeline.json` for any pending items.
+- If pending items exist: "You have {N} roles in the pipeline — run `/career-agent eval` on the next one, or `/career-agent pdf {id}` to tailor your CV for this role."
+- If no pending items: "No other roles queued. Run `/career-agent scan` to find more, or `/career-agent pdf {id}` to prep your CV for this one."
+
+If the recommendation was Apply or Consider, also note: "Run `/career-agent story` if you haven't built your story bank yet — you'll need it for behavioral interviews."

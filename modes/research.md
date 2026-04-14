@@ -1,5 +1,7 @@
 # Mode: Deep Company Research
 
+Load from _context.md: Universal gate + Required reads (light) + Core rules + Research rules
+
 ## Trigger
 User says "/career-agent research", "/career-agent research {id}", "/career-agent research {company name}", "research company", "deep dive"
 
@@ -9,8 +11,10 @@ User says "/career-agent research", "/career-agent research {id}", "/career-agen
 
 ## Steps
 
-### Step 1: Identify Company
+### Step 1: Identify company
 Get the company name from the id lookup or direct input.
+Read `profile.yml` (cv_digest is sufficient — do NOT read cv.md).
+Read `data/user-patterns.md` for any research-related preferences.
 
 ### Step 2: Research via Web Search
 Search for and compile:
@@ -69,3 +73,8 @@ Confirm: "Research brief saved for {Company}."
 2. Flag if information seems outdated or sparse
 3. Be balanced — don't just find positive things
 4. Keep the output focused and actionable, not an encyclopedia
+
+## What's next
+After saving the research brief:
+- If the company is in applications.json as "evaluated": "Ready to apply? Run `/career-agent pdf {id}` to tailor your CV, then `/career-agent outreach {id}` to draft a message."
+- If no evaluation exists: "No evaluation on file for this company. Run `/career-agent eval {url}` to score the role before investing more time."

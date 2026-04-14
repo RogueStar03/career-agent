@@ -1,70 +1,127 @@
 # Mode: Interview Prep
 
+Load from _context.md: Universal gate + Required reads (heavy) + Core rules + Output standards + Interview prep rules
+
 ## Trigger
 User says "/career-agent prep", "/career-agent prep {id}", or "interview prep", "prepare for interview"
 
 ## Input
 - `/career-agent prep {id}` — prep for application #{id} (reads its report from reports/)
 - `/career-agent prep` with a JD pasted — prep from scratch
-- If neither, ask the user
+- If neither, ask the user which role they're preparing for
 
-## Steps
+---
 
-### Step 1: Load Context
-Read silently:
-- `cv.md` — your real experience
-- `profile.yml` — your background
-- `data/story-bank.md` — existing STAR stories (avoid duplicating)
-- If id given, read the corresponding report from `reports/`
-- `modes/_context.md`
+## Step 1 — Load context
 
-### Step 2: Analyze the Role
+Read:
+- `cv.md` — full resume (heavy mode — needed for accurate technical prep)
+- `profile.yml` — background and targets
+- `data/story-bank.md` — existing verified stories (check competency coverage before anything else)
+- If id given: read the corresponding report from `reports/`
+
+---
+
+## Step 2 — Analyze the role
+
 From the JD or evaluation report, identify:
-- **Key competencies** they're hiring for (technical + behavioral)
-- **Seniority signals** — what level of answers they expect
-- **Team/org context** — what the team does, who you'd work with
+- **Key behavioral competencies** the role emphasizes
+- **Technical topics** likely to come up in screening
+- **Seniority signals** — what depth of answers they expect
+- **Team/org context** — what the team does, who the user would work with
 
-### Step 3: Behavioral Prep (STAR+Reflection)
-Generate 4-5 STAR stories mapped to likely behavioral questions:
+---
 
-For each story:
+## Step 3 — Behavioral prep
+
+**Do not generate stories. Surface existing ones or initiate story collection.**
+
+### 3a. Check story bank coverage against this role
+
+Read `data/story-bank.md`. For each behavioral competency the role emphasizes, check if a verified story already covers it.
+
+Show the user a quick coverage table:
+
 ```
-Q: "{Likely interview question}"
-Theme: {leadership / problem-solving / conflict / failure / impact / collaboration}
-Situation: {1-2 sentences — set the scene from a REAL experience in cv.md}
-Task: {What was your specific responsibility}
-Action: {What YOU did — be specific about decisions and technical choices}
-Result: {Quantified outcome if possible}
-Reflection: {What you learned, what you'd do differently}
-Maps to CV: {Which job/project this comes from}
+Competency (role needs)     Story available?
+─────────────────────────────────────────────
+Problem-solving             ✓ "prod outage fix" — use this
+Collaboration               ✓ "sprint planning conflict" — use this
+Conflict                    ✗ — not in story bank
+Failure                     ✓ "missed deadline recovery" — use this
 ```
 
-Rules:
-- Every story MUST map to a real experience from cv.md
-- Prioritize stories that showcase skills the JD emphasizes
-- Check story-bank.md first — if a matching story already exists, reference it instead of recreating
-- Each story should be different (don't reuse the same project for all 5)
+### 3b. For competencies with existing stories — map them
 
-### Step 4: Technical Prep
-Based on the JD's tech requirements:
-- List 3-5 **technical topics** likely to come up
-- For each: one-line description of what to review and a suggested depth level (surface / working knowledge / deep dive)
-- Flag any topics in your growth_areas from profile.yml — suggest specific prep resources
+For each covered competency, show:
+```
+Q: "[Likely behavioral question for this role]"
+Story to use: "[title from story bank]"
+Angle to emphasize: [which part of the story is most relevant to this specific JD]
+```
 
-### Step 5: Questions to Ask Them
-Generate 3-4 thoughtful questions to ask the interviewer that:
-- Show you've researched the company
-- Probe for culture/team signals
-- Relate to things in the JD
+Do not rewrite or paraphrase the story — the user already has it in story-bank.md and knows it.
 
-### Step 6: Update Story Bank
-- Compare new stories against `data/story-bank.md`
-- Append only NEW unique stories (don't duplicate themes or experiences already banked)
-- Each story in the bank should be tagged with themes for easy lookup
+### 3c. For gaps — redirect to story-bank mode
 
-### Step 7: Save
+For any competency NOT covered in the story bank:
+
+> "I don't have a verified story for [competency] in your story bank yet. I can't generate one — that would be made up. Two options:
+> 1. Run `/career-agent story` now and we'll build a real story for this competency together.
+> 2. Skip it for now and note it as a gap going into this interview."
+
+Ask the user which they prefer. Do not proceed past this for the missing competency.
+
+---
+
+## Step 4 — Technical prep
+
+Based on the JD's tech requirements and `cv.md`:
+
+List 3–5 technical topics likely to come up. For each:
+- One-line summary of what to review
+- Suggested depth: surface / working knowledge / deep dive
+- Flag any `growth_areas` from `profile.yml` — these deserve extra prep time
+
+---
+
+## Step 5 — Questions to ask them
+
+Generate 3–4 thoughtful questions to ask the interviewer:
+- Show you've read the JD carefully
+- Probe for team culture, growth, and day-to-day reality
+- Avoid questions easily answered by the company website
+
+---
+
+## Step 6 — Save
+
 Save the full prep sheet to `reports/prep-{NNN}-{company-slug}-{YYYY-MM-DD}.md`
-Confirm: "Interview prep saved. {X} new stories added to story bank."
 
-## Output Format
-Clean markdown with sections: Behavioral Prep, Technical Prep, Questions to Ask.
+Format:
+```markdown
+# Interview Prep — {Company} — {Role}
+Date: {YYYY-MM-DD}
+
+## Behavioral stories mapped
+[coverage table + question-to-story mapping from Step 3b]
+
+## Gaps to address
+[any competencies without a story — link to /career-agent story]
+
+## Technical prep
+[Step 4 output]
+
+## Questions to ask
+[Step 5 output]
+```
+
+Confirm: "Prep sheet saved to reports/. {X} competencies covered by existing stories, {Y} gaps flagged."
+
+---
+
+## What's next
+
+After saving, output:
+- If gaps exist: "Run `/career-agent story` to fill [competency] before your interview."
+- If all covered: "Your story bank has you covered. Review your stories in `data/story-bank.md` — remember to tell them naturally, not from memory."

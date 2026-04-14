@@ -1,17 +1,35 @@
 # Mode: Portal Scanner
 
+Load from _context.md: Universal gate + Required reads (light) + Core rules + Portal scanner rules
+
 ## Trigger
 User says "/career-agent scan", "scan portals", "find new jobs", "scan"
 
 ## Steps
 
-### Step 1: Load Context
+### Step 0: Confirm targeting (before scanning anything)
+Read `profile.yml`. Display the current scan targets and ask for confirmation:
+
+```
+Scanning for:
+  Roles:    [target_roles from profile.yml]
+  Location: [location]
+  Remote:   [remote_preference]
+  Salary:   [salary_range.min]+ [currency]
+
+Confirm these targets, or override for this session?
+[Press Enter to confirm, or describe any changes]
+```
+
+If the user overrides (e.g. "only Flutter roles" or "add Product Manager"), apply the override for this session only — do NOT write back to profile.yml.
+
+### Step 1: Load context
 Read silently:
 - `templates/portals.yml` — companies and queries to scan
-- `profile.yml` — target roles and keywords
+- `profile.yml` — target roles and keywords (cv_digest is sufficient — do NOT read cv.md)
 - `data/scan-history.json` — previously seen URLs (to avoid duplicates)
 - `data/applications.json` — already tracked applications (to avoid re-finding)
-- `modes/_context.md`
+- `data/user-patterns.md` — apply any scan-related preferences noted here
 
 ### Step 2: Scan Each Company
 For each company in portals.yml:
@@ -82,3 +100,9 @@ If the user picks listings:
 3. If a career page fails to load, skip it and note the error
 4. Keep scan fast — don't deep-crawl, just get the listings page
 5. Always show results grouped by relevance level
+
+## What's next
+After confirming results:
+- If HIGH relevance items found: "Start with `/career-agent eval {url}` on the top HIGH result."
+- If only MEDIUM/LOW: "Nothing high-relevance this scan. You can still evaluate MEDIUM items, or update `templates/portals.yml` with more companies to watch."
+- If nothing new found: "No new listings since last scan. Try adding more companies to `templates/portals.yml`."

@@ -1,5 +1,7 @@
 # Mode: Tailor CV
 
+Load from _context.md: Universal gate + Required reads (heavy) + Core rules + Output standards + PDF generation
+
 Generate a tailored, ATS-optimized CV as a PDF for a specific job description.
 
 ## Trigger
@@ -17,10 +19,10 @@ User says `/career-agent pdf`, `/career-agent pdf {id}`, "tailor cv", "generate 
 ### Step 1: Load context
 
 Read silently:
-- `cv.md` — the source of truth. Never add anything not in here.
+- `cv.md` — source of truth. Never add anything not in here.
 - `profile.yml` — contact info, skills
 - `templates/cv-template.html` — the HTML template
-- `modes/_context.md` — shared rules
+- `data/user-patterns.md` — apply any tailor-cv preferences noted here
 
 If an evaluation id was given, also read the corresponding `reports/{id}-*.md` to understand what scored well and what the gaps were.
 
@@ -171,3 +173,7 @@ Print:
 4. Skills: 10–15 max — curated for this role, not exhaustive.
 5. The professional summary is the highest-leverage section — spend the most effort here.
 6. Always update applications.json with pdf_path after generating.
+
+## What's next
+After confirming the PDF:
+"Your tailored CV is ready. Apply via the company's career portal, then update your status in `data/applications.json` to 'applied'. Run `/career-agent outreach {id}` if you want to also send a direct message to someone at the company."
