@@ -1,42 +1,42 @@
 # career-agent
 
-A Claude Code-powered job search assistant. Not a traditional app — a folder of markdown prompt files that turn Claude Code into a structured, repeatable job application pipeline.
+**Your job search, run like a system.**
 
-Evaluates job descriptions, scores them against your profile, generates tailored CVs, tracks applications, preps interview stories, and drafts outreach — all from the terminal.
+No app. No dashboard. No SaaS subscription. Just Claude Code reading your CV, scoring job postings, generating tailored PDFs, and prepping your interviews — all from the terminal, all from a folder of markdown prompt files.
+
+The intelligence is in the prompts. The data stays local.
 
 ---
 
-## How it works
-
-This system runs entirely inside [Claude Code](https://claude.ai/code). The `modes/` folder contains prompt files that define how Claude behaves for each task. Your resume and preferences are configuration files Claude reads before every operation.
+## What it does
 
 ```
-/career-agent onboard                 → first-run setup wizard        ✓
-/career-agent story                   → build your STAR story bank    ✓
-/career-agent eval <JD text or URL>   → score a job posting           ✓
-/career-agent pdf <id>                → generate a tailored CV PDF    ✓
-/career-agent prep <id>               → interview prep (maps stories) ✓
-/career-agent scan                    → scan portals for new listings ✓
-/career-agent outreach <id>           → draft outreach message        ✓
-/career-agent research <id>           → deep company research         ✓
-/career-agent status                  → show tracker summary          ✓
-/career-agent verify                  → run data integrity checks     ✓
+/career-agent onboard                 → first-run setup — builds cv.md + profile from scratch
+/career-agent story                   → build your STAR story bank (real ones, not fabricated)
+/career-agent eval <JD or URL>        → score a job posting across 7 dimensions
+/career-agent pdf <id>                → generate a tailored CV PDF
+/career-agent prep <id>               → interview prep — maps your stories to the role
+/career-agent scan                    → scan company portals for new listings
+/career-agent outreach <id>           → draft a cold outreach message
+/career-agent research <id>           → deep company research via web
+/career-agent status                  → tracker summary
+/career-agent verify                  → data integrity check
 ```
 
-**New users: start with `/career-agent onboard`.** It builds your `cv.md` and `profile.yml` through conversation if you don't have them yet.
+Paste a URL or raw JD without a command → eval runs automatically.
 
-Paste a URL or raw JD text without a command and eval runs automatically.
+**First time? Start with `/career-agent onboard`.** It asks what it needs and builds your profile through conversation.
 
 ---
 
 ## Setup
 
-### 1. Prerequisites
+### Prerequisites
 
 - [Claude Code](https://claude.ai/code) installed and authenticated
-- Node.js (for utility scripts)
+- Node.js 18+
 
-### 2. Clone the repo
+### Install
 
 ```bash
 git clone https://github.com/your-username/career-agent.git
@@ -44,56 +44,35 @@ cd career-agent
 npm install
 ```
 
-### 3. Add your personal files
-
-These files are gitignored — they stay local and never get committed.
+For portal scanning (optional):
 
 ```bash
-cp cv.md.example cv.md
-cp profile.yml.example profile.yml
+npx playwright install chromium
 ```
 
-Or skip this step and run `/career-agent onboard` — it will build both files through conversation.
-
-### 4. Initialize data files
+### Initialize data files
 
 ```bash
 echo '{"applications": []}' > data/applications.json
 echo '{"version": 1, "pending": []}' > data/pipeline.json
-touch data/story-bank.md
-touch data/user-patterns.md
+touch data/story-bank.md data/user-patterns.md
 ```
 
-### 5. Run onboarding
+### Run
 
-Open Claude Code in this directory and run:
+Open Claude Code in this directory:
 
 ```
 /career-agent onboard
 ```
 
-This sets up your profile, reviews or builds your CV, and walks you through what to do next. If you already have `cv.md` and `profile.yml` filled in, you can skip straight to `/career-agent story` to build your interview story bank.
+If you already have a CV and know what you're after, skip to `/career-agent story` to build your interview bank first — it's the most valuable step before applying anywhere.
 
 ---
 
-## Project structure
+## How scoring works
 
-```
-modes/          Prompt files — one per command
-templates/      Scoring weights, CV HTML template, portal list
-scripts/        Node.js utility scripts (verify, export, etc.)
-data/           Local-only: tracker, inbox, story bank (gitignored)
-reports/        Local-only: one markdown report per evaluation (gitignored)
-output/         Local-only: generated CV PDFs (gitignored)
-cv.md           Local-only: your resume (gitignored)
-profile.yml     Local-only: your preferences (gitignored)
-```
-
----
-
-## Evaluation scoring
-
-Each job is scored across 7 dimensions (weights sum to 1.0):
+Every eval scores the role across 7 dimensions, weighted average → recommendation.
 
 | Dimension | Weight |
 |---|---|
@@ -105,58 +84,74 @@ Each job is scored across 7 dimensions (weights sum to 1.0):
 | Remote Flexibility | 0.10 |
 | Culture Signals | 0.10 |
 
-Score 1–5 per dimension → weighted average → **Apply / Consider / Weak / Pass**
+**4.0+** Apply · **3.0–3.9** Consider · **2.0–2.9** Weak · **< 2.0** Pass
+
+---
+
+## Project structure
+
+```
+modes/          One prompt file per command — this is where the logic lives
+templates/      Scoring config, CV HTML template, portal list
+scripts/        Node.js utility scripts (PDF generation, verify)
+data/           Local only — tracker, inbox, story bank, user patterns (gitignored)
+reports/        Local only — one markdown report per eval (gitignored)
+output/         Local only — generated CV PDFs (gitignored)
+cv.md           Local only — your resume, source of truth (gitignored)
+profile.yml     Local only — targets, dealbreakers, salary range (gitignored)
+```
 
 ---
 
 ## Changelog
 
-### 2026-04-14 — Beginner-friendly redesign + integrity fixes
+### 2026-04-14 — Integrity overhaul + token efficiency
 
-**New modes**
-- `modes/onboard.md` — first-run wizard: builds `cv.md` from scratch via Q&A or audits an existing one, sets up `profile.yml` with field-by-field explanations, generates `cv_digest`, suggests target roles
-- `modes/story-bank.md` — deep Q&A story elicitation: asks open questions, probes for specifics, reflects back for verification, only structures into STAR after user confirms. Never generates a story the user didn't describe.
-
-**Integrity fix (critical)**
-- `modes/interview-prep.md` rewritten — no longer generates STAR stories from the CV. Now maps existing verified stories from `data/story-bank.md` to the role, and explicitly redirects gaps to `/career-agent story`. Fabrication is gone.
+**Anti-fabrication fix (critical)**
+Interview prep previously generated STAR stories extrapolated from your CV. They looked right. They were made up. Rewritten so it maps only verified stories from your story bank to the role — if there are none, it redirects you to `/career-agent story` instead of inventing them.
 
 **Token efficiency**
-- `modes/_context.md` restructured with mode tags — each mode now loads only the sections it needs (not the full file)
-- `profile.yml` gains a `cv_digest` field — a short 2–3 sentence background summary. Light modes (scan, outreach, research, story-bank) read this instead of loading the full `cv.md`. Saves ~45–60% context per invocation for those commands.
+Light modes (outreach, scan, research, story-bank) no longer load the full `cv.md`. They read a `cv_digest` — a 2–3 sentence summary in `profile.yml`. Context reduction: **45–60% per light-mode invocation**.
 
-**Empty file handling**
-- Universal gate in `_context.md`: if any required file is missing or has placeholder values, all modes stop and offer two options — conversation fill or paste-in-file. Nothing proceeds on missing data.
+Full application cycle benchmark (eval → tailored CV → outreach → interview prep): ~29k tokens on Sonnet 4.6.
 
-**Adaptive system**
-- `data/user-patterns.md` — new preference log. Modes append observed preferences; all modes read it at session start and apply preferences silently.
-- All modes now end with a context-aware "what's next?" hint based on current tracker state.
+**Onboarding wizard**
+`/career-agent onboard` — new first-run mode. Builds `cv.md` from scratch via Q&A if you don't have one, or audits an existing one. Sets up `profile.yml` field by field with explanations. Generates `cv_digest`. Suggests target roles.
 
-**Scan improvements**
-- Pre-scan targeting confirmation step: shows current targets from `profile.yml` before scanning, accepts session-only overrides without writing back to the file.
+**Story bank**
+`/career-agent story` — new mode. Asks open questions, probes for specifics, reflects back, structures into STAR only after you confirm. Never generates a story you didn't describe.
 
----
+**Empty file gate**
+All modes now stop immediately if required files are missing or contain placeholder values. No silent failures.
 
-### 2026-04-10 — Phases 4–6 complete
-
-- Added `modes/interview-prep.md`, `modes/scan.md`, `modes/outreach.md`, `modes/research.md`
-- Added `templates/portals.yml` (8 companies + Wellfound queries), `data/scan-history.json`
-- Updated `data/pipeline.json` (versioned schema), `modes/_context.md`, `CLAUDE.md`
-
-### 2026-04-07 — Phase 3 complete
-
-- Added `modes/tailor-cv.md`, PDF generation via Puppeteer, skill intersection logic
-- Added `templates/cv-template.html`, `scripts/generate-pdf.mjs`
-
-### 2026-04-07 — Phases 1–2 complete
-
-- Core eval pipeline, scoring dimensions, `data/applications.json` tracker
-- `modes/evaluate.md`, `modes/_context.md`, `templates/scoring.yml`
+**Adaptive preferences**
+`data/user-patterns.md` — modes append observed preferences (tone, role targets, recurring feedback). All modes read it at session start and apply preferences silently.
 
 ---
 
-## Why Claude Code
+### 2026-04-10 — Phases 4–6
 
-This system uses Claude Code's slash command system, file context, and tool access rather than building a traditional app. The "code" is mostly markdown — prompt engineering as configuration. Easier to modify, extend, and understand than a brittle Python CLI.
+- Added `interview-prep`, `scan`, `outreach`, `research` modes
+- Portal list (`templates/portals.yml`) with 8 companies + Wellfound queries
+- Versioned `data/pipeline.json` schema for scan inbox
+
+### 2026-04-07 — Phase 3
+
+- CV tailoring mode + Puppeteer PDF generation
+- ATS-optimized HTML template (`templates/cv-template.html`)
+
+### 2026-04-07 — Phases 1–2
+
+- Core eval pipeline, 7-dimension scoring system
+- `data/applications.json` as single application tracker
+
+---
+
+## Why not just build an app
+
+The prompt files are the product. Modifying how eval works means editing a markdown file. Adding a new command means writing a new prompt. No build step, no deployment, no framework to fight.
+
+The tradeoff: everything is a manual Claude Code session. Nothing runs in the background. If that's a dealbreaker, this isn't the right tool.
 
 ---
 
